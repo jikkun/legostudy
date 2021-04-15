@@ -6,7 +6,7 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
 @Component
-@RequiredArgsConstructor // private final 생성자 자동 주입
+@RequiredArgsConstructor // 롬복 private final 생성자 자동 주입
 public class SignUpFormValidator implements Validator {
 
     private final AccountRepository accountRepository;

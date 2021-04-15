@@ -1,6 +1,5 @@
 package com.legostudy.account;
 
-import org.apache.tomcat.jni.File;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +10,8 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.then;
@@ -18,6 +19,8 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
+import com.legostudy.domain.Account;
 
 
 @SpringBootTest
@@ -65,6 +68,12 @@ class AccountControllerTest {
                 .with(csrf()))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/"));
+
+
+        Account account = accountRepository.findByEmail("abcd@email.com");
+        assertNotNull(account);
+        assertNotEquals(account.getPassword(),"123456789");
+        assertNotNull(account.getEmailCheckToken());
 
         assertTrue(accountRepository.existsByEmail("abcd@email.com"));
         then(javaMailSender).should().send(any(SimpleMailMessage.class));
