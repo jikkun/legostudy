@@ -27,7 +27,7 @@ public class AccountService {
         Account account = Account.builder()
                 .email(signUpForm.getEmail())
                 .nickname(signUpForm.getNickname())
-                // .password(signUpForm.getPassword()) // TODO Need Pwd encoding !!!
+                // .password(signUpForm.getPassword()) // Need Pwd encoding !!!
                 .password(passwordEncoder.encode(signUpForm.getPassword()))
                 .studyCreatedByWeb(true)
                 .studyEnrollmentResultByWeb(true)
