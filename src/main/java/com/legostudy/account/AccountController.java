@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import java.time.LocalDateTime;
-
 import javax.validation.Valid;
 
 import com.legostudy.domain.Account;
@@ -69,6 +67,11 @@ public class AccountController {
         model.addAttribute("nickname", account.getNickname());
         return view;
         
+    }
+
+    @GetMapping("/main")
+    public String openMainPage(){
+        return "main";
     }
 
     @GetMapping("/testPage")
