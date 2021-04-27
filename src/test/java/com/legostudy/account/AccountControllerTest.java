@@ -112,7 +112,6 @@ class AccountControllerTest {
                 .andExpect(view().name("redirect:/"))
                 .andExpect(authenticated().withUsername("jkjkname"));
 
-
         Account account = accountRepository.findByEmail("abcd@email.com");
         assertNotNull(account);
         assertNotEquals(account.getPassword(),"123456789");

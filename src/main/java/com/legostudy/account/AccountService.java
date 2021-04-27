@@ -45,7 +45,7 @@ public class AccountService {
         return newAccount;
     }
 
-    private void sendSignUpConfirmEmail(Account newAccount) {
+    public void sendSignUpConfirmEmail(Account newAccount) {
         SimpleMailMessage mailMessage = new SimpleMailMessage();
         mailMessage.setTo(newAccount.getEmail());
         mailMessage.setSubject("레고스터디, 회원 가입 안내");
@@ -61,7 +61,7 @@ public class AccountService {
 
 
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
-                    account.getNickname(),
+                    new UserAccount(account),
                     account.getPassword(),
                     List.of(new SimpleGrantedAuthority("ROLE_USER")));
 

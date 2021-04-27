@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments.html :: head"></head>
+<body class="bg-light">
+
+    <div th:replace="fragments.html :: main-nav"></div>
+
+    <div class="py-5 text-center" th:if="${error != null}">
+    	<p class="lead">LEGOSTUDY 가입</p>
+    	<div class="alert alert-danger" role="alert" th:text="${error}"></div>
+    	<p class="lead" th:text="${email}">example@email.com</p>
+    </div>
+    
+    <div class="py-5 text-center" th:if="${error == null}">
+        <p class="lead">LEGOSTUDY 가입</p>
+        
+        <h2>LEGOSTUDY 서비스를 사용하려면 인증 이메일을 확인하세요.</h2>
+        
+        <div th:if="${account != null && !account.emailVerified}">
+	        <div class="alert alert-warning" role="alert" >
+				LEGOSTUDY 가입을 완료하려면 <span th:text="${account.email}" class="alert-link">계정 인증 이메일을 확인</span> 이메일을 확인 하세요.
+			</div>
+	        <a role="button" class="btn btn-primary" th:href="@{'/resend-email-token?email=' + ${account.email}} " >재전송</a>
+        </div>
+        <div class="alert alert-danger" role="alert" th:if="${account == null}">
+            잘못된 접근입니다.
+        </div>
+    </div>
+    
+    <div th:replace="fragments.html :: footer"></div>
+</body>
+</html>
